@@ -4,3 +4,20 @@ the function generation part of the lab
 19.08.20
 C Jones
 */
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+#ifndef generator_H
+#define	generator_H
+
+// define function prototypes
+void init_generator(void); // intialise function generator
+void generate_sine_wave(unsigned int frequency);
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif

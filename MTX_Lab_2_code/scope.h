@@ -5,3 +5,18 @@ the signal acquisition and sensing part of the lab
 C Jones
 */
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+#ifndef scope_H
+#define	scope_H
+
+// define function prototypes
+void init_scope(void); // initialise scope
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif
