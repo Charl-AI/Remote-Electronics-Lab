@@ -13,6 +13,10 @@ C Jones
 /******************************************************************************/
 // Import statements and boilerplate code
 
+#include <Arduino.h>
+#include "scope.h"
+#include "generator.h"
+
 /******************************************************************************/
 // Define global variables
 
