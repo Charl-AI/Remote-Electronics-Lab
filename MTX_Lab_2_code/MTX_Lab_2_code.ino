@@ -12,16 +12,17 @@ C Jones
  */
 /******************************************************************************/
 // Import statements and boilerplate code
-
 #include <Arduino.h>
 #include "scope.h"
 #include "generator.h"
-
 /******************************************************************************/
 // Define global variables
 
-const unsigned int SINE_WAVE_FREQENCY = 500 // frequency of generated wave (Hz)
-const unsigned int SCOPE_SAMPLING_FREQUENCY = 1000 // (Hz)
+/* These variables control the frequency of the sine wave generated and the
+sampling frequency of the scope. It is recommended to leave the scope frequency
+unchanged (at 500). Do not increase the sine wave freqency over 250*/
+const uint16_t SINE_WAVE_FREQENCY = 10 // (Hz)
+const uint16_t SCOPE_SAMPLING_FREQUENCY = 500 // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -33,8 +34,7 @@ void setup()
 // Main loop, runs forever
 void loop()
 {
-  unsigned long currentTime = millis();
-  
+  generate_sine_wave(SINE_WAVE_FREQENCY);
 
 }
 /******************************************************************************/
