@@ -40,14 +40,14 @@ void generate_sine_wave(uint16_t frequency)
         6,9,12,16,20,24,29,35,
         40,46,53,59,66,73,81,88,
         96,104,112,119,128
-    }   
+    }   ;
 
     // check if it's time to output next number from table
     if(currentTime - previousTime >= time_delay)
     {
         // write the output to the DAC pins        
-        PORTD = sine_lookup_table[phase % 100]
-        previousTime = currentTime // update prev time variable
+        PORTD = sine_lookup_table[phase % 100];
+        previousTime = currentTime; // update prev time variable
         phase ++; // increment phase 
     }
 }
