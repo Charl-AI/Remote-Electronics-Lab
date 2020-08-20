@@ -35,6 +35,7 @@ void setup()
 void loop()
 {
   generate_sine_wave(SINE_WAVE_FREQENCY);
+  oscilloscope(SCOPE_SAMPLING_FREQUENCY);
 
 }
 /******************************************************************************/

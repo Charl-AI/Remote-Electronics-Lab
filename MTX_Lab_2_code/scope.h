@@ -12,8 +12,13 @@ extern "C" {
 #ifndef scope_H
 #define	scope_H
 
+#define rawPin A0
+#define filteredPin A1
+
 // define function prototypes
 void init_scope(void); // initialise scope
+void oscilloscope(uint16_t sampling_freq);
+
 
 #ifdef	__cplusplus
 }
