@@ -15,17 +15,17 @@ void init_generator(void)
 
 void generate_sine_wave(uint16_t frequency)
 {
-    static uint8_t phase; // phase of the wave (one wave is 100 steps)
+    static uint32_t phase; // phase of the wave (one wave is 100 steps)
     static uint32_t previousTime; // variable to store prev time
     
     // Calculates the delay between each point to reach desired frequency (us)
-    const uint32_t time_delay = 1000000 / (100*frequency)
+    const uint32_t time_delay = 1000000 / (100*frequency);
 
     uint32_t currentTime = micros(); // read time in microseconds
 
     /*  Here we have a lookup table to generate a single sine wave from 100 
     points, ranging from 0 to 255 */
-    const uint8_t sine_lookup_table[100] = 
+    const uint8_t sine_lookup_table[] = 
     {
         128,136,143,151,159,167,174,182,
         189,196,202,209,215,220,226,231,

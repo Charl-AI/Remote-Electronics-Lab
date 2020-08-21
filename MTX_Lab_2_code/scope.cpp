@@ -22,15 +22,17 @@ void oscilloscope(uint16_t sampling_freq)
 
     if(currentTime - previousTime >= time_delay)
     {
+        static uint16_t raw;
+        static uint16_t filtered;
         static int pin;
         if(pin == 0)
         {
-        uint16_t raw = analogRead(rawPin);
-        pin = 1
+        raw = analogRead(rawPin);
+        pin = 1;
         }
         else
         {
-            uint16_t filtered =  analogRead(rawPin);
+            filtered =  analogRead(filteredPin);
             pin = 0;
         }
         
