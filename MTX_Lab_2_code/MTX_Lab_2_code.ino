@@ -19,15 +19,12 @@ C Jones
 // Define global variables
 
 /* These variables control the frequency of the sine wave generated and the
-sampling frequency of the scope. The generator frequency is accurate to 10% of
-the specified value up to 50 Hz.The sampling frequency is 2.5x generator
-frequency to avoid aliasing*/
+sampling frequency of the scope.*/
 
-// vary me between
-const uint16_t SINE_WAVE_FREQUENCY = 50; // (Hz)
+// vary me between 1-100 Hz
+const uint16_t SINE_WAVE_FREQUENCY = 100; // (Hz)
 
-// Do not change
-const uint16_t SCOPE_SAMPLING_FREQUENCY = roundf(2.5 * SINE_WAVE_FREQUENCY); // (Hz)
+const uint16_t SCOPE_SAMPLING_FREQUENCY = 250; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()

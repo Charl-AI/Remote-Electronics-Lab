@@ -13,18 +13,17 @@ void init_generator(void)
     DDRD = B11111111; // Port D at Arduino Uno (pin 0-7), set as outputs
 }
 
-void init_generator(void)
-{
-    DDRD = B11111111; // Port D at Arduino Uno (pin 0-7), set as outputs
-}
-
 void generate_sine_wave(uint16_t frequency)
 {
     static uint32_t phase;        // phase of the wave (one wave is 100 steps)
     static uint32_t previousTime; // variable to store prev time
 
-    // Calculates the delay between each point to reach desired frequency (us)
-    static const uint32_t time_delay = roundf(1000000 / (100 * frequency) - 4);
+    /* Calculates the delay between each point to reach desired frequency  
+     the factor of 100 is beacause the lookup table has 100 points and the
+     factor of 1.2 is to compensate for an approximately 20% error due to 
+     the board's speed
+     (us)*/
+    static const uint32_t time_delay = roundf(1000000 / (100 * frequency * 1.2));
 
     uint32_t currentTime = micros(); // read time in microseconds
 
