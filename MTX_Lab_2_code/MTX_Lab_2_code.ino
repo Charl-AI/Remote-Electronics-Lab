@@ -19,10 +19,15 @@ C Jones
 // Define global variables
 
 /* These variables control the frequency of the sine wave generated and the
-sampling frequency of the scope. It is recommended to leave the scope frequency
-unchanged (at 500). Do not increase the sine wave freqency over 250*/
-const uint16_t SINE_WAVE_FREQENCY = 10; // (Hz)
-const uint16_t SCOPE_SAMPLING_FREQUENCY = 500; // (Hz)
+sampling frequency of the scope. The generator frequency is accurate to 10% of
+the specified value up to 50 Hz.The sampling frequency is 2.5x generator
+frequency to avoid aliasing*/
+
+// vary me between
+const uint16_t SINE_WAVE_FREQUENCY = 50; // (Hz)
+
+// Do not change
+const uint16_t SCOPE_SAMPLING_FREQUENCY = roundf(2.5 * SINE_WAVE_FREQUENCY); // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -34,8 +39,7 @@ void setup()
 // Main loop, runs forever
 void loop()
 {
-  generate_sine_wave(SINE_WAVE_FREQENCY);
+  generate_sine_wave(SINE_WAVE_FREQUENCY);
   oscilloscope(SCOPE_SAMPLING_FREQUENCY);
-
 }
 /******************************************************************************/
