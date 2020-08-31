@@ -13,12 +13,11 @@ void init_scope(void)
     Serial.begin(2000000);
 }
 
-void oscilloscope(uint16_t sampling_freq)
+void oscilloscope(uint16_t sampling_freq, uint32_t currentTime)
 {
     static uint32_t previousTime;
-    const uint32_t currentTime = millis();
 
-    static const uint32_t time_delay = roundf(1000 / (2 * sampling_freq));
+    static const uint32_t time_delay = roundf(1000000 / (2 * sampling_freq));
 
     if (currentTime - previousTime >= time_delay)
     {

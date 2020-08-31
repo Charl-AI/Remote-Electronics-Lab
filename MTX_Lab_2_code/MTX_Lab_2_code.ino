@@ -36,7 +36,9 @@ void setup()
 // Main loop, runs forever
 void loop()
 {
-  generate_sine_wave(SINE_WAVE_FREQUENCY);
-  oscilloscope(SCOPE_SAMPLING_FREQUENCY);
+  uint32_t currentTime = micros(); // reads current time in microseconds
+
+  generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime);
+  oscilloscope(SCOPE_SAMPLING_FREQUENCY, currentTime);
 }
 /******************************************************************************/

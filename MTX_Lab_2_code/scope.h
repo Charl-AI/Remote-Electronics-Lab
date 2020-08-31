@@ -17,7 +17,7 @@ extern "C" {
 
 // define function prototypes
 void init_scope(void); // initialise scope
-void oscilloscope(uint16_t sampling_freq);
+void oscilloscope(uint16_t sampling_freq, uint32_t currentTime);
 
 
 #ifdef	__cplusplus
