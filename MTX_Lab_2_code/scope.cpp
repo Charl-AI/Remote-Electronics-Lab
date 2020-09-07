@@ -10,55 +10,64 @@ C Jones
 
 void init_scope(void)
 {
-    Serial.begin(9600);
+    Serial.begin(9600); // initialise serial connection
+
+    // Set ADC prescaler to 16 to speed it up (as opposed to 128 normally)
     sbi(ADCSRA,ADPS2) ;
     cbi(ADCSRA,ADPS1) ;
     cbi(ADCSRA,ADPS0) ;
 }
 
-void oscilloscope(uint16_t sampling_freq, uint32_t currentTime)
-{
-    static uint32_t previousTime;
+void oscilloscope(uint32_t currentTime)
+{   
+    // stores time when previous measurement was taken
+    static uint32_t previousTime; 
 
-    //static const uint32_t time_delay = lroundf(1000000 / (2 * sampling_freq));
+    // Time delay of 500 microseconds between measurements
     static const uint32_t time_delay = 500;
 
-    static uint16_t rawArray[250];
-    static uint16_t filteredArray[250];
-    static uint8_t sampleNumber;
+    // These variables store the data in the RAM (holding 300 samples each)
+    static uint16_t rawArray[300];
+    static uint16_t filteredArray[300];
+    static uint8_t sampleNumber; // stores which sample number we're on
 
-    if ((currentTime - previousTime >= time_delay) && (sampleNumber < 250))
+    // check it's time to take a sample and we haven't filled out arrays
+    if ((currentTime - previousTime >= time_delay) && (sampleNumber < 300))
     {
-        static int pin;
+        static int pin; // stores which pin was read last
         if (pin == 0)
         {
-            rawArray[sampleNumber] = analogRead(rawPin);
-            pin = 1;
+            rawArray[sampleNumber] = analogRead(rawPin); // read from raw pin
+            pin = 1; // next reading will be from filtered pin
         }
         else
         {
+            // read from filtered pin
             filteredArray[sampleNumber] = analogRead(filteredPin);
-            pin = 0;
-            sampleNumber ++;
-        }
+            pin = 0; // next reading will be from raw pin
 
-        
-        previousTime = currentTime;
+            sampleNumber ++; // increment sample number
+        }
+        previousTime = currentTime; // store when sample was taken
     }
     
-    else if(sampleNumber == 250)
+    // if we have filled up our storage arrays, send results to PC
+    else if(sampleNumber == 300)
     {
-        for(int i=0;i<250;i++){
+        // Send data over serial port
+        for(int i=0;i<300;i++){
             Serial.print(rawArray[i]);
             Serial.print(",");
             Serial.println(filteredArray[i]);
             delay(1);
         }
+
+        // wait for any user input
         while(!Serial.available() ){
         }
-        sampleNumber = 0;
-        char throwaway = Serial.read();
-    }
     
+        sampleNumber = 0; // reset sample number
+        char throwaway = Serial.read(); // clear serial buffer
+    }
 }
 

@@ -24,7 +24,6 @@ sampling frequency of the scope.*/
 // vary me between 1-100 Hz
 const float SINE_WAVE_FREQUENCY = 65; // (Hz)
 
-const uint16_t SCOPE_SAMPLING_FREQUENCY = 600; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -39,6 +38,6 @@ void loop()
   uint32_t currentTime = micros(); // reads current time in microseconds
 
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime);
-  oscilloscope(SCOPE_SAMPLING_FREQUENCY, currentTime);
+  oscilloscope(currentTime);
 }
 /******************************************************************************/
