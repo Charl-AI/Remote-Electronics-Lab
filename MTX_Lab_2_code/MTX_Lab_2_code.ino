@@ -24,7 +24,13 @@ sampling frequency of the scope.*/
 // vary me between 1-100 Hz
 const uint16_t SINE_WAVE_FREQUENCY = 100; // (Hz)
 
-const uint16_t SCOPE_SAMPLING_FREQUENCY = 250; // (Hz)
+//const uint16_t SCOPE_SAMPLING_FREQUENCY = 250; // (Hz)
+
+int a0;
+int a1;
+
+volatile boolean Flag;
+
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -33,12 +39,25 @@ void setup()
   init_scope();
 }
 /******************************************************************************/
+ISR(ADC_vect) {
+  if (Flag == false) {
+    a0 = ADCL | ADCH << 8; // read 10 bit value from AD
+    ADMUX = ADMUX & ~(1 << MUX0) | (1 << MUX1); // Set A1 analog input pin instead of A0
+    Flag = true;          // Next measure will be A1
+  }
+  else {  // If (Flag == true)
+    a1 = ADCL | ADCH << 8; // read 10 bit value from AD
+    ADMUX = ADMUX & ~(1 << MUX1) | (1 << MUX0); // Set A0 analog input pin instead of A1
+    Flag = false;          // Next measure will be A0
+  }
+}
+/******************************************************************************/
 // Main loop, runs forever
 void loop()
 {
   uint32_t currentTime = micros(); // reads current time in microseconds
 
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime);
-  oscilloscope(SCOPE_SAMPLING_FREQUENCY, currentTime);
+  oscilloscope(SCOPE_SAMPLING_FREQUENCY, currentTime,a0,a1);
 }
 /******************************************************************************/
