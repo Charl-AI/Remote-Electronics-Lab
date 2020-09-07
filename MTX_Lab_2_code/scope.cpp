@@ -19,26 +19,38 @@ void oscilloscope(uint16_t sampling_freq, uint32_t currentTime)
 
     static const uint32_t time_delay = roundf(1000000 / (2 * sampling_freq));
 
-    if (currentTime - previousTime >= time_delay)
+    static uint16_t rawArray[250];
+    static uint16_t filteredArray[250];
+    static uint8_t sampleNumber;
+
+    if ((currentTime - previousTime >= time_delay) && (sampleNumber < 250))
     {
-        static uint16_t raw;
-        static uint16_t filtered;
         static int pin;
         if (pin == 0)
         {
-            raw = analogRead(rawPin);
+            rawArray[sampleNumber] = analogRead(rawPin);
             pin = 1;
         }
         else
         {
-            filtered = analogRead(filteredPin);
+            filteredArray[sampleNumber] = analogRead(filteredPin);
             pin = 0;
         }
 
-        Serial.print(raw);
-        Serial.print(",");
-        Serial.println(filtered);
-
+        sampleNumber ++;
         previousTime = currentTime;
     }
+    else
+    {
+        for(i=0;i<250;i++){
+            Serial.print(rawArray[i]);
+            Serial.print(",");
+            Serial.println(filteredArray[i]);
+        }
+        while(!Serial.available() ){
+        }
+        sampleNumber = 0;
+    }
+    
 }
+
