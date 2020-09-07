@@ -14,7 +14,7 @@ extern "C" {
 
 // define function prototypes
 void init_generator(void); // intialise function generator
-void generate_sine_wave(uint16_t frequency, uint32_t currentTime);
+void generate_sine_wave(float frequency, uint32_t currentTime);
 
 #ifdef	__cplusplus
 }

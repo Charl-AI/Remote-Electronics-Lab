@@ -22,7 +22,7 @@ C Jones
 sampling frequency of the scope.*/
 
 // vary me between 1-100 Hz
-const uint16_t SINE_WAVE_FREQUENCY = 100; // (Hz)
+const float SINE_WAVE_FREQUENCY = 0.5; // (Hz)
 
 const uint16_t SCOPE_SAMPLING_FREQUENCY = 250; // (Hz)
 /******************************************************************************/

@@ -13,7 +13,7 @@ void init_generator(void)
     DDRD = B11111111; // Port D at Arduino Uno (pin 0-7), set as outputs
 }
 
-void generate_sine_wave(uint16_t frequency, uint32_t currentTime)
+void generate_sine_wave(float frequency, uint32_t currentTime)
 {
     static uint32_t phase;        // phase of the wave (one wave is 100 steps)
     static uint32_t previousTime; // variable to store prev time
