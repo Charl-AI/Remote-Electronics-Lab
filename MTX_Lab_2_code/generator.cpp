@@ -18,12 +18,9 @@ void generate_sine_wave(float frequency, uint32_t currentTime)
     static uint32_t phase;        // phase of the wave (one wave is 100 steps)
     static uint32_t previousTime; // variable to store prev time
 
-    /* Calculates the delay between each point to reach desired frequency  
-     the factor of 100 is beacause the lookup table has 100 points and the
-     factor of 1.2 is to compensate for an approximately 20% error due to 
-     the board's speed
-     (us)*/
-    static const uint32_t time_delay = roundf(1000000 / (100 * frequency));
+    /* Calculates the delay (us) between each point to reach desired frequency  
+     the factor of 100 is beacause the lookup table has 100 points */
+    static const uint32_t time_delay = lroundf(1000000 / (100 * frequency));
 
     /*  Here we have a lookup table to generate a single sine wave from 100 
     points, ranging from 0 to 255 */

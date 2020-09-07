@@ -18,18 +18,15 @@ C Jones
 /******************************************************************************/
 // Define global variables
 
-/* These variables control the frequency of the sine wave generated and the
-sampling frequency of the scope.*/
-
-// vary me between 1-100 Hz
+// Frequency of sine wave generated. Vary me between 1-100 Hz
 const float SINE_WAVE_FREQUENCY = 65; // (Hz)
 
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
 {
-  init_generator();
-  init_scope();
+  init_generator(); // intialises function generator
+  init_scope(); // initialises scope
 }
 /******************************************************************************/
 // Main loop, runs forever
