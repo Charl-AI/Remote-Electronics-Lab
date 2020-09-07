@@ -22,9 +22,9 @@ C Jones
 sampling frequency of the scope.*/
 
 // vary me between 1-100 Hz
-const float SINE_WAVE_FREQUENCY = 0.5; // (Hz)
+const float SINE_WAVE_FREQUENCY = 65; // (Hz)
 
-const uint16_t SCOPE_SAMPLING_FREQUENCY = 250; // (Hz)
+const uint16_t SCOPE_SAMPLING_FREQUENCY = 600; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()

@@ -15,6 +15,13 @@ extern "C" {
 #define rawPin A0
 #define filteredPin A1
 
+#ifndef cbi
+#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
+#endif
+#ifndef sbi
+#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
+#endif
+
 // define function prototypes
 void init_scope(void); // initialise scope
 void oscilloscope(uint16_t sampling_freq, uint32_t currentTime);

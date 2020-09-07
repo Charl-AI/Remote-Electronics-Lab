@@ -23,7 +23,7 @@ void generate_sine_wave(float frequency, uint32_t currentTime)
      factor of 1.2 is to compensate for an approximately 20% error due to 
      the board's speed
      (us)*/
-    static const uint32_t time_delay = roundf(1000000 / (100 * frequency * 1.2));
+    static const uint32_t time_delay = roundf(1000000 / (100 * frequency));
 
     /*  Here we have a lookup table to generate a single sine wave from 100 
     points, ranging from 0 to 255 */

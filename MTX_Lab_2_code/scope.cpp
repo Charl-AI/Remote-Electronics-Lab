@@ -10,14 +10,18 @@ C Jones
 
 void init_scope(void)
 {
-    Serial.begin(2000000);
+    Serial.begin(9600);
+    sbi(ADCSRA,ADPS2) ;
+    cbi(ADCSRA,ADPS1) ;
+    cbi(ADCSRA,ADPS0) ;
 }
 
 void oscilloscope(uint16_t sampling_freq, uint32_t currentTime)
 {
     static uint32_t previousTime;
 
-    static const uint32_t time_delay = roundf(1000000 / (2 * sampling_freq));
+    //static const uint32_t time_delay = lroundf(1000000 / (2 * sampling_freq));
+    static const uint32_t time_delay = 500;
 
     static uint16_t rawArray[250];
     static uint16_t filteredArray[250];
@@ -35,21 +39,25 @@ void oscilloscope(uint16_t sampling_freq, uint32_t currentTime)
         {
             filteredArray[sampleNumber] = analogRead(filteredPin);
             pin = 0;
+            sampleNumber ++;
         }
 
-        sampleNumber ++;
+        
         previousTime = currentTime;
     }
-    else
+    
+    else if(sampleNumber == 250)
     {
-        for(i=0;i<250;i++){
+        for(int i=0;i<250;i++){
             Serial.print(rawArray[i]);
             Serial.print(",");
             Serial.println(filteredArray[i]);
+            delay(1);
         }
         while(!Serial.available() ){
         }
         sampleNumber = 0;
+        char throwaway = Serial.read();
     }
     
 }
