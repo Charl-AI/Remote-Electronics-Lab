@@ -27,12 +27,13 @@ void oscilloscope(uint32_t currentTime)
     static const uint32_t time_delay = 500;
 
     // These variables store the data in the RAM (holding 300 samples each)
-    static uint16_t rawArray[300];
-    static uint16_t filteredArray[300];
-    static uint8_t sampleNumber; // stores which sample number we're on
+    static const uint16_t SAMPLES = 400;
+    static uint16_t rawArray[SAMPLES];
+    static uint16_t filteredArray[SAMPLES];
+    static uint16_t sampleNumber; // stores which sample number we're on
 
     // check it's time to take a sample and we haven't filled out arrays
-    if ((currentTime - previousTime >= time_delay) && (sampleNumber < 300))
+    if ((currentTime - previousTime >= time_delay) && (sampleNumber < SAMPLES))
     {
         static int pin; // stores which pin was read last
         if (pin == 0)
@@ -52,10 +53,10 @@ void oscilloscope(uint32_t currentTime)
     }
     
     // if we have filled up our storage arrays, send results to PC
-    else if(sampleNumber == 300)
+    else if(sampleNumber == SAMPLES)
     {
         // Send data over serial port
-        for(int i=0;i<300;i++){
+        for(int i=0;i<SAMPLES;i++){
             Serial.print("Raw:");
             Serial.print(rawArray[i]);
             Serial.print(",");
