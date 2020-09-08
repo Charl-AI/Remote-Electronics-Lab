@@ -69,11 +69,13 @@ void oscilloscope(uint32_t currentTime)
 
 void send_data(uint16_t rawArray[], uint16_t filteredArray[], uint16_t SAMPLES)
 {
+    // These variables store the max and min values of the data
     uint16_t rawMaximum = 0;
     uint16_t rawMinimum = 1023;
     uint16_t filteredMaximum = 0;
     uint16_t filteredMinimum = 1023;
     
+    // Here we loop through the data to find the max and min values
     for(int i=0;i<SAMPLES;i++){
         if(rawArray[i]>rawMaximum){
             rawMaximum = rawArray[i];
@@ -89,23 +91,25 @@ void send_data(uint16_t rawArray[], uint16_t filteredArray[], uint16_t SAMPLES)
         }
     }
 
+    // calculate Vpp based off max and min values
     uint16_t rawVPP = rawMaximum - rawMinimum;
     uint16_t filteredVPP = filteredMaximum - filteredMinimum;
 
+    // buffers to store strings
     char rawBuf[20];
     char filteredBuf[20];
 
+    // create strings with data labels and Vpp numbers
     sprintf(rawBuf,"Raw_Vpp=%d:",rawVPP);
     sprintf(filteredBuf,"Filtered_Vpp=%d:",filteredVPP);
     
 
-    // Send data over serial port
+    // Send data and labels over serial port
         for(int i=0;i<SAMPLES;i++){
             Serial.print(rawBuf);
             Serial.print(rawArray[i]);
             Serial.print(",");
             Serial.print(filteredBuf);
             Serial.println(filteredArray[i]);
-            //delay(1);
         } 
 }
