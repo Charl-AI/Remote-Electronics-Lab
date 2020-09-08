@@ -27,7 +27,7 @@ void oscilloscope(uint32_t currentTime)
     static const uint32_t TIME_DELAY = 500;
 
     // These variables store the data in the RAM (holding 300 samples each)
-    static const uint16_t SAMPLES = 400;
+    static const uint16_t SAMPLES = 300;
     static uint16_t rawArray[SAMPLES];
     static uint16_t filteredArray[SAMPLES];
     static uint16_t sampleNumber; // stores which sample number we're on
@@ -56,7 +56,7 @@ void oscilloscope(uint32_t currentTime)
     else if(sampleNumber == SAMPLES)
     {
         // Send data over serial port
-        send_data(rawArray[],filteredArray[],SAMPLES);
+        send_data(rawArray,filteredArray,SAMPLES);
 
         // wait for any user input
         while(!Serial.available() ){
@@ -67,7 +67,7 @@ void oscilloscope(uint32_t currentTime)
     }
 }
 
-void send_data(uint16_t rawArray[], uint16_t filteredArray[], SAMPLES)
+void send_data(uint16_t rawArray[], uint16_t filteredArray[], uint16_t SAMPLES)
 {
     uint16_t rawMaximum = 0;
     uint16_t rawMinimum = 1023;
@@ -84,7 +84,7 @@ void send_data(uint16_t rawArray[], uint16_t filteredArray[], SAMPLES)
         if(filteredArray[i]>filteredMaximum){
             filteredMaximum = filteredArray[i];
         }
-        else if(rawArray[i] < rawMinimum){
+        else if(filteredArray[i] < filteredMinimum){
             filteredMinimum = filteredArray[i];
         }
     }
@@ -92,13 +92,20 @@ void send_data(uint16_t rawArray[], uint16_t filteredArray[], SAMPLES)
     uint16_t rawVPP = rawMaximum - rawMinimum;
     uint16_t filteredVPP = filteredMaximum - filteredMinimum;
 
+    char rawBuf[20];
+    char filteredBuf[20];
+
+    sprintf(rawBuf,"Raw_Vpp=%d:",rawVPP);
+    sprintf(filteredBuf,"Filtered_Vpp=%d:",filteredVPP);
+    
+
     // Send data over serial port
         for(int i=0;i<SAMPLES;i++){
-            Serial.print("Raw:");
+            Serial.print(rawBuf);
             Serial.print(rawArray[i]);
             Serial.print(",");
-            Serial.print("Filtered:");
+            Serial.print(filteredBuf);
             Serial.println(filteredArray[i]);
-            delay(1);
+            //delay(1);
         } 
 }
