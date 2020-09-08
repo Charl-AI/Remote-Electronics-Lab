@@ -19,7 +19,7 @@ C Jones
 // Define global variables
 
 // Frequency of sine wave generated. Vary me between 1-100 Hz
-const float SINE_WAVE_FREQUENCY = 65; // (Hz)
+const float SINE_WAVE_FREQUENCY = 100; // (Hz)
 
 /******************************************************************************/
 // Setup function, runs when device is started

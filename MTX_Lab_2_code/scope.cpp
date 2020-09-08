@@ -56,8 +56,10 @@ void oscilloscope(uint32_t currentTime)
     {
         // Send data over serial port
         for(int i=0;i<300;i++){
+            Serial.print("Raw:");
             Serial.print(rawArray[i]);
             Serial.print(",");
+            Serial.print("Filtered:");
             Serial.println(filteredArray[i]);
             delay(1);
         }
