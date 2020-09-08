@@ -20,11 +20,11 @@ void generate_sine_wave(float frequency, uint32_t currentTime)
 
     /* Calculates the delay (us) between each point to reach desired frequency  
      the factor of 100 is beacause the lookup table has 100 points */
-    static const uint32_t time_delay = lroundf(1000000 / (100 * frequency));
+    static const uint32_t TIME_DELAY = lroundf(1000000 / (100 * frequency));
 
     /*  Here we have a lookup table to generate a single sine wave from 100 
     points, ranging from 0 to 255 */
-    static const uint8_t sine_lookup_table[] =
+    static const uint8_t SINE_LOOKUP_TABLE[] =
         {
             128, 136, 143, 151, 159, 167, 174, 182,
             189, 196, 202, 209, 215, 220, 226, 231,
@@ -41,10 +41,10 @@ void generate_sine_wave(float frequency, uint32_t currentTime)
             96, 104, 112, 119, 128};
 
     // check if it's time to output next number from table
-    if (currentTime - previousTime >= time_delay)
+    if (currentTime - previousTime >= TIME_DELAY)
     {
         // write the output to the DAC pins
-        PORTD = sine_lookup_table[phase % 100];
+        PORTD = SINE_LOOKUP_TABLE[phase % 100];
         previousTime = currentTime; // update prev time variable
         phase++;                    // increment phase
     }

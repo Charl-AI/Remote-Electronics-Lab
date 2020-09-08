@@ -24,7 +24,7 @@ void oscilloscope(uint32_t currentTime)
     static uint32_t previousTime; 
 
     // Time delay of 500 microseconds between measurements
-    static const uint32_t time_delay = 500;
+    static const uint32_t TIME_DELAY = 500;
 
     // These variables store the data in the RAM (holding 300 samples each)
     static const uint16_t SAMPLES = 400;
@@ -33,7 +33,7 @@ void oscilloscope(uint32_t currentTime)
     static uint16_t sampleNumber; // stores which sample number we're on
 
     // check it's time to take a sample and we haven't filled out arrays
-    if ((currentTime - previousTime >= time_delay) && (sampleNumber < SAMPLES))
+    if ((currentTime - previousTime >= TIME_DELAY) && (sampleNumber < SAMPLES))
     {
         static int pin; // stores which pin was read last
         if (pin == 0)
@@ -56,14 +56,7 @@ void oscilloscope(uint32_t currentTime)
     else if(sampleNumber == SAMPLES)
     {
         // Send data over serial port
-        for(int i=0;i<SAMPLES;i++){
-            Serial.print("Raw:");
-            Serial.print(rawArray[i]);
-            Serial.print(",");
-            Serial.print("Filtered:");
-            Serial.println(filteredArray[i]);
-            delay(1);
-        }
+        send_data(rawArray[],filteredArray[],SAMPLES);
 
         // wait for any user input
         while(!Serial.available() ){
@@ -74,3 +67,38 @@ void oscilloscope(uint32_t currentTime)
     }
 }
 
+void send_data(uint16_t rawArray[], uint16_t filteredArray[], SAMPLES)
+{
+    uint16_t rawMaximum = 0;
+    uint16_t rawMinimum = 1023;
+    uint16_t filteredMaximum = 0;
+    uint16_t filteredMinimum = 1023;
+    
+    for(int i=0;i<SAMPLES;i++){
+        if(rawArray[i]>rawMaximum){
+            rawMaximum = rawArray[i];
+        }
+        else if(rawArray[i] < rawMinimum){
+            rawMinimum = rawArray[i];
+        }
+        if(filteredArray[i]>filteredMaximum){
+            filteredMaximum = filteredArray[i];
+        }
+        else if(rawArray[i] < rawMinimum){
+            filteredMinimum = filteredArray[i];
+        }
+    }
+
+    uint16_t rawVPP = rawMaximum - rawMinimum;
+    uint16_t filteredVPP = filteredMaximum - filteredMinimum;
+
+    // Send data over serial port
+        for(int i=0;i<SAMPLES;i++){
+            Serial.print("Raw:");
+            Serial.print(rawArray[i]);
+            Serial.print(",");
+            Serial.print("Filtered:");
+            Serial.println(filteredArray[i]);
+            delay(1);
+        } 
+}
