@@ -16,7 +16,7 @@ C Jones
 #include "scope.h"
 #include "generator.h"
 /******************************************************************************/
-// Define global variables
+// Global variables
 
 // Frequency of sine wave generated. Vary me between 5-100 Hz
 const float SINE_WAVE_FREQUENCY = 80; // (Hz)

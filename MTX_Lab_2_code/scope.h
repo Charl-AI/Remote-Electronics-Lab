@@ -13,8 +13,7 @@ extern "C" {
 #define	scope_H
 
 // give analogue pins meaningful names
-#define rawPin A0
-#define filteredPin A1
+#define dataPin A0
 
 // this allows us to change the ADC prescaler
 #ifndef cbi
