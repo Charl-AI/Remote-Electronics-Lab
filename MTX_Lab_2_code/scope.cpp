@@ -10,7 +10,7 @@ C Jones
 
 void init_scope(void)
 {
-    Serial.begin(9600); // initialise serial connection
+    Serial.begin(115200); // initialise serial connection
 
     // Set ADC prescaler to 16 to speed it up (as opposed to 128 normally)
     sbi(ADCSRA,ADPS2) ;
@@ -61,7 +61,7 @@ void send_data(uint16_t array[], uint16_t SAMPLES)
     uint16_t minimum = 1023;
     
     // Here we loop through the data to find the max and min values
-    for(int i=0;i<SAMPLES;i++){
+    for(int i=100;i<SAMPLES;i++){
         if(array[i]>maximum){
             maximum = array[i];
         }
@@ -82,6 +82,10 @@ void send_data(uint16_t array[], uint16_t SAMPLES)
     // Send data and labels over serial port
         for(int i=0;i<SAMPLES;i++){
             Serial.print(buf);
-            Serial.println(array[i]);
+            Serial.print(array[i]);
+            Serial.print(",");
+            Serial.print(0);
+            Serial.print(",");
+            Serial.println(1023);
         } 
 }

@@ -20,7 +20,7 @@ void generate_sine_wave(float frequency, uint32_t currentTime)
 
     /* Calculates the delay (us) between each point to reach desired frequency  
      the factor of 100 is beacause the lookup table has 100 points */
-    static const uint32_t TIME_DELAY = lroundf(1000000 / (100 * frequency));
+    static const uint32_t TIME_DELAY = lroundf(1000000 / (100 * frequency*1.1));
 
     /*  Here we have a lookup table to generate a single sine wave from 100 
     points, ranging from 0 to 255 */
