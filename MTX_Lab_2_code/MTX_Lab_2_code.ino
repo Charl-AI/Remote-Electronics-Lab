@@ -10,7 +10,7 @@ signal.
 13.08.20
 C Jones
  */
-#define EXERCISE_1
+
 /******************************************************************************/
 // Import statements and boilerplate code
 #include <Arduino.h>
@@ -22,14 +22,13 @@ C Jones
 /* Changes which code is compiled depending on the exercise being completed
 When moving onto the next exercise, comment out the previous one and
 uncomment the next one*/
-
+#define EXERCISE_1
 //#define EXERCISE_2
 //#define EXERCISE_3
 
 /* Frequency of sine wave generated. Vary me between 5-200 Hz in lab 1 & 2 
 This does nothing in lab 3*/
 const float SINE_WAVE_FREQUENCY = 5; // (Hz)
-
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -43,7 +42,25 @@ void loop()
 {
   uint32_t currentTime = micros(); // reads current time in microseconds
 
-  generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime);
+  #ifdef EXERCISE_1 
+  static const uint8_t SINE_LOOKUP_TABLE[] =
+    {
+        128, 136, 143, 151, 159, 167, 174, 182,
+        189, 196, 202, 209, 215, 220, 226, 231,
+        235, 239, 243, 246, 249, 251, 253, 254,
+        255, 255, 255, 254, 253, 251, 249, 246,
+        243, 239, 235, 231, 226, 220, 215, 209,
+        202, 196, 189, 182, 174, 167, 159, 151,
+        143, 136, 128, 119, 112, 104, 96, 88,
+        81, 73, 66, 59, 53, 46, 40, 35,
+        29, 24, 20, 16, 12, 9, 6, 4,
+        2, 1, 0, 0, 0, 1, 2, 4,
+        6, 9, 12, 16, 20, 24, 29, 35,
+        40, 46, 53, 59, 66, 73, 81, 88,
+        96, 104, 112, 119, 128
+    };
+  #endif
+  generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE);
   oscilloscope(currentTime);
 }
 /******************************************************************************/
