@@ -19,11 +19,11 @@ C Jones
 /******************************************************************************/
 // These variables are for the student to change
 
-/* Changes which code is compiled depending on the exercise being completed
+/* Changes which code is compiled depending on the exercise being completed.
 When moving onto the next exercise, comment out the previous one and
 uncomment the next one*/
-#define EXERCISE_1
-//#define EXERCISE_2
+//#define EXERCISE_1
+#define EXERCISE_2
 //#define EXERCISE_3
 
 /* Frequency of sine wave generated. Vary me between 5-200 Hz in lab 1 & 2 
@@ -59,8 +59,31 @@ void loop()
         40, 46, 53, 59, 66, 73, 81, 88,
         96, 104, 112, 119, 128
     };
+
+  #elif defined(EXERCISE_2)
+  static const uint8_t SINE_LOOKUP_TABLE[] =
+  {
+    64,68,72,76,80,84,88,91,
+    95,98,102,105,108,111,113,116,
+    118,120,122,124,125,126,127,127,
+    128,128,128,127,127,126,125,124,
+    122,120,118,116,113,111,108,105,
+    102,98,95,91,88,84,80,76,
+    72,68,64,60,56,52,48,44,
+    40,37,33,30,26,23,20,17,
+    15,12,10,8,6,4,3,2,
+    1,1,0,0,0,1,1,2,
+    3,4,6,8,10,12,15,17,
+    20,23,26,30,33,37,40,44,
+    48,52,56,60,64
+  };
   #endif
+
+  #ifndef EXERCISE_3
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE);
   oscilloscope(currentTime);
+  #else
+  #error not written exercise 3 yet
+  #endif
 }
 /******************************************************************************/
