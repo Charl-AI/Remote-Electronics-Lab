@@ -10,15 +10,24 @@ signal.
 13.08.20
 C Jones
  */
+#define EXERCISE_1
 /******************************************************************************/
 // Import statements and boilerplate code
 #include <Arduino.h>
 #include "scope.h"
 #include "generator.h"
 /******************************************************************************/
-// Global variables
+// These variables are for the student to change
 
-// Frequency of sine wave generated. Vary me between 5-100 Hz
+/* Changes which code is compiled depending on the exercise being completed
+When moving onto the next exercise, comment out the previous one and
+uncomment the next one*/
+
+//#define EXERCISE_2
+//#define EXERCISE_3
+
+/* Frequency of sine wave generated. Vary me between 5-200 Hz in lab 1 & 2 
+This does nothing in lab 3*/
 const float SINE_WAVE_FREQUENCY = 5; // (Hz)
 
 /******************************************************************************/
