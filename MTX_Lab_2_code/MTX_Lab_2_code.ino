@@ -22,8 +22,8 @@ C Jones
 /* Changes which code is compiled depending on the exercise being completed.
 When moving onto the next exercise, comment out the previous one and
 uncomment the next one*/
-//#define EXERCISE_1
-#define EXERCISE_2
+#define EXERCISE_1
+//#define EXERCISE_2
 //#define EXERCISE_3
 
 /* Frequency of sine wave generated. Vary me between 5-200 Hz in lab 1 & 2 

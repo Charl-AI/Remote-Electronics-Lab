@@ -14,7 +14,7 @@ void init_generator(void)
 }
 
 void generate_sine_wave(float frequency, uint32_t currentTime, 
-                                        uint8_t lookup_table[100]);
+                                        uint8_t lookup_table[100])
 {
     static uint32_t phase;        // phase of the wave (one wave is 100 steps)
     static uint32_t previousTime; // variable to store prev time
