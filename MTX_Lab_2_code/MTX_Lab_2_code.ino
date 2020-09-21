@@ -77,13 +77,14 @@ void loop()
     84, 87, 90, 94, 97, 101, 104,
     108, 112, 116, 120, 124, 128
   };
+  #elif defined(EXERCISE_3)
+  static const uint8_t SINE_LOOKUP_TABLE[] =
+  {
+
+  }
   #endif
 
-  #ifndef EXERCISE_3
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE);
   oscilloscope(currentTime);
-  #else
-  #error not written exercise 3 yet
-  #endif
 }
 /******************************************************************************/
