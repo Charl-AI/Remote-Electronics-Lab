@@ -10,7 +10,7 @@ C Jones
 
 void init_scope(void)
 {
-    Serial.begin(9600); // initialise serial connection
+    Serial.begin(115200); // initialise serial connection
 
     // Set ADC prescaler to 16 to speed it up (as opposed to 128 normally)
     sbi(ADCSRA,ADPS2) ;

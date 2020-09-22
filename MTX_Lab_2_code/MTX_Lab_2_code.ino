@@ -28,7 +28,7 @@ uncomment the next one*/
 
 /* Frequency of sine wave generated. Vary me between 5-200 Hz in lab 1 & 2. 
 This does nothing in lab 3*/
-const float SINE_WAVE_FREQUENCY = 5; // (Hz)
+const float SINE_WAVE_FREQUENCY = 100; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -80,8 +80,21 @@ void loop()
   #elif defined(EXERCISE_3)
   static const uint8_t SINE_LOOKUP_TABLE[] =
   {
-
-  }
+    120, 120, 120, 120, 126, 144, 150, 150, 150, 138,
+    138, 138, 126, 126, 138, 144, 150, 156, 156, 162,
+    162, 150, 138, 132, 126, 120, 126, 132, 144, 162,
+    162, 156, 144, 126, 126, 120, 126, 126, 138, 144,
+    156, 156, 156, 156, 150, 150, 138, 132, 138, 144,
+    150, 144, 144, 138, 138, 144, 144, 144, 144, 138,
+    132, 132, 132, 138, 156, 162, 162, 174, 168, 162,
+    156, 156, 162, 162, 156, 150, 156, 150, 132, 120,
+    102,  78,  66,  54,  48,  54,  66,  72,  78,  84,
+    96, 102, 114, 132, 144, 144, 144, 156, 168, 174
+  };
+  static const float SINE_WAVE_FREQUENCY = 8; // (Hz)
+  #else
+  #error I am an automated error message Beep Boop. If you see me it means you have done something naughty
+  #error Please select an exercise by uncommenting either exercise 1,2 or 3. Thanks :)
   #endif
 
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE);
