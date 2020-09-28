@@ -27,7 +27,7 @@ void oscilloscope(uint32_t currentTime)
     static const uint32_t TIME_DELAY = 500;
 
     // These variables store the data in the RAM (holding 300 samples each)
-    static const uint16_t SAMPLES = 500;
+    static const uint16_t SAMPLES = 800;
     static uint16_t dataArray[SAMPLES];
     static uint16_t sampleNumber; // stores which sample number we're on
 
@@ -71,13 +71,14 @@ void send_data(uint16_t array[], uint16_t SAMPLES)
     }
 
     // calculate Vpp based off max and min values
-    uint16_t vpp = maximum - minimum;
-   
+    float vppAU = maximum - minimum;
+    float vppV = (vppAU * 5)/1023;
+
     // buffers to store strings
     char buf[20];
 
     // create strings with data labels and Vpp numbers
-    sprintf(buf,"Vpp=%d:",vpp);
+    sprintf(buf,"Vpp=%d.%02dV:",(int)vppV,(int)((vppV*100))%100);
 
     // Send data and labels over serial port
         for(int i=0;i<SAMPLES;i++){

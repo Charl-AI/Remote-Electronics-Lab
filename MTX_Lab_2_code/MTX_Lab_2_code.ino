@@ -3,16 +3,15 @@ This code can be uploaded to the Arduino as part of MTX Lab 2: Analogue Filters.
 
 The purpose of this code is to allow the Arduino to act as both a function 
 generator and an oscilloscope. We use an 8-bit R2R ladder as a DAC to create a 
-sine wave and then measure it before and after it is filtered using the
-analogue inputs. The Arduino IDE serial plotter acts as a scope to visualise the
-signal.
+sine wave and vary the frequency whilst measuring the peak to peak voltage
+by using the Serial Plotter as a scope.
 
 13.08.20
 C Jones
  */
 
 /******************************************************************************/
-// Import statements and boilerplate code
+// Import statements
 #include <Arduino.h>
 #include "scope.h"
 #include "generator.h"
@@ -20,15 +19,14 @@ C Jones
 // These variables are for the student to change
 
 /* Changes which code is compiled depending on the exercise being completed.
-When moving onto the next exercise, comment out the previous one and
-uncomment the next one*/
-#define EXERCISE_1
-//#define EXERCISE_2
+Once you get to exercise 3, comment out the first line and uncomment the
+the 'EXERCISE_3' line*/
+#define EXERCISE_1_AND_2
 //#define EXERCISE_3
 
-/* Frequency of sine wave generated. Vary me between 5-200 Hz in lab 1 & 2. 
-This does nothing in lab 3*/
-const float SINE_WAVE_FREQUENCY = 100; // (Hz)
+/* Frequency of sine wave generated. Vary me between 2-200 Hz in exercise 
+1 & 2. This does nothing in lab 3*/
+const float SINE_WAVE_FREQUENCY = 20; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -42,7 +40,7 @@ void loop()
 {
   uint32_t currentTime = micros(); // reads current time in microseconds
 
-  #ifdef EXERCISE_1 
+  #ifdef EXERCISE_1_AND_2
   static const uint8_t SINE_LOOKUP_TABLE[] =
   {
     128, 136, 143, 151, 159, 167, 174, 182,
@@ -60,23 +58,6 @@ void loop()
     96, 104, 112, 119, 128
   };
 
-  #elif defined(EXERCISE_2)
-  static const uint8_t SINE_LOOKUP_TABLE[] =
-  {
-    128, 132, 136, 140, 144, 148, 152, 155,
-    159, 162, 166, 169, 172, 175, 177, 180,
-    182, 184, 186, 188, 189, 190, 191, 191,
-    192, 192, 192, 191, 191, 190, 189, 188,
-    186, 184, 182, 180, 177, 175, 172, 169,
-    166, 162, 159, 155, 152, 148, 144, 140,
-    136, 132, 128, 124, 120, 116, 112, 108,
-    104, 101, 97, 94, 90, 87, 84, 81,
-    79, 76, 74, 72, 70, 68, 67, 66,
-    65, 65, 64, 64, 64, 65, 65, 66,
-    67, 68, 70, 72, 74, 76, 79, 81,
-    84, 87, 90, 94, 97, 101, 104,
-    108, 112, 116, 120, 124, 128
-  };
   #elif defined(EXERCISE_3)
   static const uint8_t SINE_LOOKUP_TABLE[] =
   {
@@ -94,7 +75,7 @@ void loop()
   static const float SINE_WAVE_FREQUENCY = 8; // (Hz)
   #else
   #error I am an automated error message Beep Boop. If you see me it means you have done something naughty
-  #error Please select an exercise by uncommenting either exercise 1,2 or 3. Thanks :)
+  #error Please select an exercise by uncommenting either exercise 1 or 3. Thanks :)
   #endif
 
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE);
