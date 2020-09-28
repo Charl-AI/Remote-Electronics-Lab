@@ -14,20 +14,20 @@ void init_generator(void)
 }
 
 void generate_sine_wave(float frequency, uint32_t currentTime, 
-                                        uint8_t lookup_table[100])
+                                        uint8_t lookup_table[])
 {
     static uint32_t phase;        // phase of the wave (one wave is 100 steps)
     static uint32_t previousTime; // variable to store prev time
 
     /* Calculates the delay (us) between each point to reach desired frequency  
      the factor of 100 is beacause the lookup table has 100 points */
-    static const uint32_t TIME_DELAY = lroundf(1000000 / (100 * frequency*1.1));
+    static const uint32_t TIME_DELAY = lroundf(1000000 / (50 * frequency*1.1));
 
     // check if it's time to output next number from table
     if (currentTime - previousTime >= TIME_DELAY)
     {
         // write the output to the DAC pins
-        PORTD = lookup_table[phase % 100];
+        PORTD = lookup_table[phase % 50];
         previousTime = currentTime; // update prev time variable
         phase++;                    // increment phase
     }
