@@ -18,15 +18,15 @@ C Jones
 /******************************************************************************/
 // These variables are for the student to change
 
-/* Changes which code is compiled depending on the exercise being completed.
-Once you get to exercise 3, uncomment the line below by removing the two
-forward slashes*/
+/* This one changes which code is compiled depending on the exercise being 
+completed. Once you get to exercise 3, uncomment the line below by removing the 
+two forward slashes*/
 
-#define EXERCISE_3
+//#define EXERCISE_3
 
 /* Frequency of sine wave generated. Vary me between 2-250 Hz in exercise 
 1 & 2. This does nothing in exercise 3*/
-const float SINE_WAVE_FREQUENCY = 250; // (Hz)
+const float SINE_WAVE_FREQUENCY = 5; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
