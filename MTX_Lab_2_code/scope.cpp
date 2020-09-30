@@ -24,7 +24,7 @@ void oscilloscope(uint32_t currentTime)
     static uint32_t previousTime; 
 
     // Time delay of 500 microseconds between measurements
-    static const uint32_t TIME_DELAY = 500;
+    static const uint32_t TIME_DELAY = 400;
 
     // These variables store the data in the RAM (holding 300 samples each)
     static const uint16_t SAMPLES = 800;
@@ -61,6 +61,8 @@ void send_data(uint16_t array[], uint16_t SAMPLES)
     uint16_t minimum = 1023;
     
     // Here we loop through the data to find the max and min values
+    // we start at the 100th point to avoid the errors that tend to
+    // occur at the start
     for(int i=100;i<SAMPLES;i++){
         if(array[i]>maximum){
             maximum = array[i];
@@ -75,7 +77,7 @@ void send_data(uint16_t array[], uint16_t SAMPLES)
     float vppV = (vppAU * 5)/1023;
 
     // buffers to store strings
-    char buf[20];
+    char buf[15];
 
     // create strings with data labels and Vpp numbers
     sprintf(buf,"Vpp=%d.%02dV:",(int)vppV,(int)((vppV*100))%100);

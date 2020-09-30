@@ -19,14 +19,14 @@ C Jones
 // These variables are for the student to change
 
 /* Changes which code is compiled depending on the exercise being completed.
-Once you get to exercise 3, comment out the first line and uncomment the
-the 'EXERCISE_3' line*/
-#define EXERCISE_1_AND_2
+Once you get to exercise 3, uncomment the line below by removing the two
+forward slashes*/
+
 //#define EXERCISE_3
 
-/* Frequency of sine wave generated. Vary me between 2-200 Hz in exercise 
-1 & 2. This does nothing in lab 3*/
-const float SINE_WAVE_FREQUENCY = 20; // (Hz)
+/* Frequency of sine wave generated. Vary me between 2-250 Hz in exercise 
+1 & 2. This does nothing in exercise 3*/
+const float SINE_WAVE_FREQUENCY = 250; // (Hz)
 /******************************************************************************/
 // Setup function, runs when device is started
 void setup()
@@ -40,8 +40,8 @@ void loop()
 {
   uint32_t currentTime = micros(); // reads current time in microseconds
 
-  #ifdef EXERCISE_1_AND_2
-  static const uint8_t SINE_LOOKUP_TABLE[] =
+  #ifndef EXERCISE_3
+    static const uint8_t SINE_LOOKUP_TABLE[] =
   {
     128,143,159,174,189,202,215,226,235,243,
     249,253,255,255,253,249,243,235,226,215,
@@ -49,28 +49,26 @@ void loop()
     53,40,29,20,12,6,2,0,0,2,
     6,12,20,29,40,53,66,81,96,112,
   };
-
-  #elif defined(EXERCISE_3)
+    static const uint8_t TABLE_SIZE = 50;
+  #else
   static const uint8_t SINE_LOOKUP_TABLE[] =
   {
-    120, 120, 120, 120, 126, 144, 150, 150, 150, 138,
-    138, 138, 126, 126, 138, 144, 150, 156, 156, 162,
-    162, 150, 138, 132, 126, 120, 126, 132, 144, 162,
-    162, 156, 144, 126, 126, 120, 126, 126, 138, 144,
-    156, 156, 156, 156, 150, 150, 138, 132, 138, 144,
-    150, 144, 144, 138, 138, 144, 144, 144, 144, 138,
-    132, 132, 132, 138, 156, 162, 162, 174, 168, 162,
-    156, 156, 162, 162, 156, 150, 156, 150, 132, 120,
-    102,  78,  66,  54,  48,  54,  66,  72,  78,  84,
-    96, 102, 114, 132, 144, 144, 144, 156, 168, 174
+   127, 132, 138, 146, 158, 170, 180, 183, 184, 192,
+        91, 196,  90, 211,  95, 144, 187, 144, 179,  93,
+        90,  98, 167, 117,  89, 101, 197, 107,  92,  92,
+       195,  93, 141,  91, 200, 198,  91, 193, 142,  98,
+        91,  92,  94,  97, 100, 101, 101, 101, 102, 100,
+       100, 101, 103, 104, 106, 107, 107, 109, 110, 111,
+       112, 113, 113, 115, 116, 117, 118, 118, 119, 120,
+       120, 122, 122, 122, 123, 124, 125, 125, 125, 126,
+       126, 126, 127, 128, 129, 130, 130, 131, 131, 131,
+       132, 132, 133, 133, 134, 134, 135, 135, 135, 136
   };
-  static const float SINE_WAVE_FREQUENCY = 8; // (Hz)
-  #else
-  #error I am an automated error message Beep Boop. If you see me it means you have done something naughty
-  #error Please select an exercise by uncommenting either exercise 1 or 3. Thanks :)
+  static const uint8_t TABLE_SIZE = 100;
+  static const float SINE_WAVE_FREQUENCY = 15; // (Hz)
   #endif
 
-  generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE);
+  generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE, TABLE_SIZE);
   oscilloscope(currentTime);
 }
 /******************************************************************************/
