@@ -22,7 +22,7 @@ C Jones
 Once you get to exercise 3, uncomment the line below by removing the two
 forward slashes*/
 
-//#define EXERCISE_3
+#define EXERCISE_3
 
 /* Frequency of sine wave generated. Vary me between 2-250 Hz in exercise 
 1 & 2. This does nothing in exercise 3*/
@@ -53,19 +53,19 @@ void loop()
   #else
   static const uint8_t SINE_LOOKUP_TABLE[] =
   {
-   127, 132, 138, 146, 158, 170, 180, 183, 184, 192,
-        91, 196,  90, 211,  95, 144, 187, 144, 179,  93,
-        90,  98, 167, 117,  89, 101, 197, 107,  92,  92,
-       195,  93, 141,  91, 200, 198,  91, 193, 142,  98,
-        91,  92,  94,  97, 100, 101, 101, 101, 102, 100,
-       100, 101, 103, 104, 106, 107, 107, 109, 110, 111,
-       112, 113, 113, 115, 116, 117, 118, 118, 119, 120,
-       120, 122, 122, 122, 123, 124, 125, 125, 125, 126,
-       126, 126, 127, 128, 129, 130, 130, 131, 131, 131,
-       132, 132, 133, 133, 134, 134, 135, 135, 135, 136
+    116, 139, 129, 119, 141, 164, 153, 143, 164, 187,
+    175, 164, 184, 206, 193, 181, 200, 221, 206, 193,
+    211, 230, 214, 199, 216, 233, 216, 199, 214, 230,
+    211, 193, 206, 221, 200, 181, 193, 206, 184, 164,
+    175, 187, 164, 143, 153, 164, 141, 119, 129, 139,
+    116,  94, 103, 114,  91,  69,  79,  90,  68,  46,
+    57,  69,  48,  27,  39,  52,  32,  12,  26,  40,
+    21,   3,  18,  34,  16,   0,  16,  34,  18,   3,
+    21,  40,  26,  12,  32,  52,  39,  27,  48,  69,
+    57,  46,  68,  90,  79,  69,  91, 114, 103,  94
   };
   static const uint8_t TABLE_SIZE = 100;
-  static const float SINE_WAVE_FREQUENCY = 15; // (Hz)
+  static const float SINE_WAVE_FREQUENCY = 10; // (Hz)
   #endif
 
   generate_sine_wave(SINE_WAVE_FREQUENCY, currentTime, SINE_LOOKUP_TABLE, TABLE_SIZE);
